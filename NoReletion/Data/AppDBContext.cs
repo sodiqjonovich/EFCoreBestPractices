@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NoReletion.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace NoReletion.Data
 {
@@ -23,6 +25,11 @@ namespace NoReletion.Data
             string connectionString = "Server = (localdb)\\MSSQLLocalDB; Database=EFCoreLearnDB; Trusted_Connection=True;";
             
             optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        internal Task SavedChangesAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }
