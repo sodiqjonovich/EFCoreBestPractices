@@ -26,7 +26,6 @@ namespace NoReletion.Repasitories
         /// You should add AppDBContext then
         /// you can inject this class with other contructors
         /// </summary>
-        /// We create contructor
         public UserRepasitory()
         {
             this._dbContext = new AppDBContext();
@@ -42,21 +41,28 @@ namespace NoReletion.Repasitories
             else return null;
         }
 
-        public async Task DeleteAsync(int userId)
+        public async Task<bool> DeleteAsync(int userId)
         {
             var user = _dbContext.Users.Find(userId);
 
             if (user is not null)
             {
                 _dbContext.Users.Remove(user);
-                await _dbContext.SavedChangesAsync();
+                await _dbContext.SaveChangesAsync();
+                return true;
             }
+            else return false;
         }
 
-        public async Task<IEnumerable<User>> GetAsync(int skipItem, int takItems)
+        public async Task<IEnumerable<User>> GetAsync(
+            int skipItem, int takItems)
         {
-            return await _dbContext.Users.Skip(skipItem)
-                    .Take(skipItem).ToListAsync();
+            var users =  await _dbContext.Users
+                    .Skip(skipItem)
+                    .Take(takItems)
+                    .ToListAsync();
+
+            return users;
         }
 
         public async Task<User> GetAsync(int userId)

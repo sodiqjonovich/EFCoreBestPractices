@@ -30,6 +30,6 @@ namespace NoReletion.RepasitoryInterfaces
 
         public Task<User> UpdateAsync(User updatedUser);
 
-        public Task DeleteAsync(int userId);
+        public Task<bool> DeleteAsync(int userId);
     }
 }
